@@ -9,11 +9,13 @@
    "icon":"https://example.org/icon.jpg",
    "favicon":"https://example.org/favicon.ico",
    "expired":false,
-   "author":{
-      "name":"Brent Simmons",
-      "url":"http://example.org/",
-      "avatar":"https://example.org/avatar.png"
-   },
+   "authors":[
+      {
+         "name":"Brent Simmons",
+         "url":"http://example.org/",
+         "avatar":"https://example.org/avatar.png"
+      }
+   ],
    "hubs":[
       {
          "type":"Type 1",

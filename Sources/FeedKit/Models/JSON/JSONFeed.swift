@@ -81,12 +81,17 @@ public struct JSONFeed {
     /// this image should use transparency where appropriate, since it may be 
     /// rendered on a non-white background.
     public var favicon: String?
-    
-    /// (optional, object) specifies the feed author. The author object has 
-    /// several members. These are all optional - but if you provide an author 
+
+    /// (deprecated, optional, object) specifies the feed author. The author object has
+    /// several members. These are all optional - but if you provide an author
     /// object, then at least one is required.
     public var author: JSONFeedAuthor?
-    
+
+    /// (optional, object) specifies the feed authors. The authors object has
+    /// several members. These are all optional - but if you provide an author
+    /// object, then at least one is required.
+    public var authors: [JSONFeedAuthor]?
+
     /// (optional, boolean) says whether or not the feed is finished - that is, 
     /// whether or not it will ever update again. A feed for a temporary event, 
     /// such as an instance of the Olympics, could expire. If the value is true, 
@@ -124,6 +129,7 @@ extension JSONFeed: Codable {
         case favicon
         case expired
         case author
+        case authors
         case hubs
         case items
     }
@@ -140,7 +146,8 @@ extension JSONFeed: Codable {
         try container.encode(icon, forKey: .icon)
         try container.encode(favicon, forKey: .favicon)
         try container.encode(expired, forKey: .expired)
-        try container.encode(author, forKey: .expired)
+        try container.encode(author, forKey: .author)
+        try container.encode(authors, forKey: .authors)
         try container.encode(hubs, forKey: .hubs)
         try container.encode(items, forKey: .items)
     }
@@ -158,6 +165,7 @@ extension JSONFeed: Codable {
         favicon = try values.decodeIfPresent(String.self, forKey: .favicon)
         expired = try values.decodeIfPresent(Bool.self, forKey: .expired)
         author = try values.decodeIfPresent(JSONFeedAuthor.self, forKey: .author)
+        authors = try values.decodeIfPresent([JSONFeedAuthor].self, forKey: .authors)
         hubs = try values.decodeIfPresent([JSONFeedHub].self, forKey: .hubs)
         items = try values.decodeIfPresent([JSONFeedItem].self, forKey: .items)
     }

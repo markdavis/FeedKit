@@ -91,10 +91,15 @@ public struct JSONFeedItem {
     /// (optional, string) specifies the modification date in RFC 3339 format.
     public var dateModified: Date?
 
-    /// (optional, object) has the same structure as the top-level author.
+    /// (deprecated, optional, object) has the same structure as the top-level author.
     /// If not specified in an item, then the top-level author, if present, is the
     /// author of the item.
     public var author: JSONFeedAuthor?
+
+    /// (optional, object) has the same structure as the top-level author.
+    /// If not specified in an item, then the top-level author, if present, is the
+    /// author of the item.
+    public var authors: [JSONFeedAuthor]?
 
     /// (optional, array of strings) can have any plain text values you want. Tags 
     /// tend to be just one word, but they may be anything. Note: they are not the 
@@ -129,6 +134,7 @@ extension JSONFeedItem: Codable {
         case date_modified
         case tags
         case author
+        case authors
         case attachments
     }
     
@@ -147,6 +153,7 @@ extension JSONFeedItem: Codable {
         try container.encode(dateModified, forKey: .date_modified)
         try container.encode(tags, forKey: .tags)
         try container.encode(author, forKey: .author)
+        try container.encode(authors, forKey: .authors)
         try container.encode(attachments, forKey: .attachments)
     }
     
@@ -165,6 +172,7 @@ extension JSONFeedItem: Codable {
         dateModified = try values.decodeIfPresent(Date.self, forKey: .date_modified)
         tags = try values.decodeIfPresent([String].self, forKey: .tags)
         author = try values.decodeIfPresent(JSONFeedAuthor.self, forKey: .author)
+        authors = try values.decodeIfPresent([JSONFeedAuthor].self, forKey: .authors)
         attachments = try values.decodeIfPresent([JSONFeedAttachment].self, forKey: .attachments)
     }
     

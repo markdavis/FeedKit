@@ -44,11 +44,13 @@ class JSONTests: BaseTestCase {
         jsonFeed.icon = "https://example.org/icon.jpg"
         jsonFeed.favicon = "https://example.org/favicon.ico"
         jsonFeed.expired = false
-        jsonFeed.author = JSONFeedAuthor(
-            name: "Brent Simmons",
-            url: "http://example.org/",
-            avatar: "https://example.org/avatar.png"
-        )
+        jsonFeed.authors = [
+            JSONFeedAuthor(
+              name: "Brent Simmons",
+              url: "http://example.org/",
+              avatar: "https://example.org/avatar.png"
+          )
+        ]
         jsonFeed.hubs = [
             JSONFeedHub(
                 type: "Type 1",
